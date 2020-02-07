@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "Add Movie";
+}
+
+<h2>@ViewBag.Title</h2>
+<p style="color:#0026ff">
+    @ViewBag.Message               @*controllerden veri taşıma 2.yol httpget ve viewbag ile mesaj yazdırırız*@
+</p>
+<form action="~/Movies/Add" method="post">
+    <div class="form-group">
+        <label for="tbName">Name</label>
+        <input type="text" class="form-control" id="tbName" name="Name"/> @*name tanımlamadan veri alamayız*@
+    </div>
+    <div class="form-group">
+        @*id labele gelince texboxı boyar o yüzden kullandık*@
+        <select id="ddlProductionYear" name="ProductionYear" class="form-control">
+            @for(int i = DateTime.Now.Year; i >= 2000; i--)
+            {
+                <option value="@i">@i</option>
+            }
+            @*<option value="2020" selected>2020</option>
+            <option value="2019">2019</option> bunu for ile güzelleştirdik*@
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="tbBoxOfficeReturn">Box Office Return</label>
+        <input type="text" class="form-control" id="tbBoxOfficeReturn" name="BoxOfficeReturn" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    &nbsp;
+    <button type="reset" class="btn btn-info">Clear</button>
+</form>
+

@@ -1,0 +1,50 @@
+﻿@model List<_036_MoviesMvcWissen.Entities.Movie>
+@{
+    ViewBag.Title = "Movies";    //yukarıki namespacei heryerde böyle yazmamak için viewin web configinde add namespace ekledm
+}
+
+<h2>@ViewBag.Title</h2>
+<a href="~/Movies/Add">Add Movie</a>
+<br />
+<label class="text-success">@TempData["Info"]</label>
+<br />
+
+@*<span>@Model.Count records found</span>*@
+<span>@ViewBag.count records found</span>
+@*<span>@ViewData["count"] records found</span>*@ @*viewdata viewbag ile aynı şey*@
+
+<table class="table">
+    <tr>
+        <td>
+
+        </td>
+        <td>
+            <b>Name</b>
+        </td>
+        <td>
+            <b>Production Year</b>
+        </td>
+        <td>
+            <b>Box Office Return</b>
+        </td>
+    </tr>
+       @foreach (var movie in Model)
+       {
+         <tr>
+             <td>
+                 @Html.ActionLink("Edit", "Edit", new { id = movie.Id })  @*Edit linkine tıklayınca Edit.cshtmle gitcek*@
+                 @Html.ActionLink("Delete", "Delete", new { id = movie.Id })
+             </td>
+            <td>
+                @movie.Name
+            </td>
+            <td>
+                @movie.ProductionYear
+            </td>
+            <td>
+                @movie.BoxOfficeReturn
+            </td>
+         </tr>
+       }
+</table>
+

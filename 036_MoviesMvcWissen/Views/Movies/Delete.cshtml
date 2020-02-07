@@ -1,0 +1,28 @@
+﻿@model Movie
+@{
+    ViewBag.Title = "Delete Movie";
+}
+
+<h2>@ViewBag.Title </h2>
+
+@using (Html.BeginForm("Delete", "Movies", FormMethod.Post))
+{
+    @Html.HiddenFor(e=>e.Id)
+    <div class="form-group">
+
+       <b>@Html.DisplayNameFor(e => e.Name):</b>  @*DisplayNameFor property name getircek,property ismini getircek misal productionName gibi*@
+        @Html.DisplayFor(e => e.Name)  @*bu da o propertynin değerini yazacak*@
+    </div>
+    <div class="form-group">
+        <b>@Html.Label("Box Office Return"): </b>
+        @Html.DisplayFor(e => e.BoxOfficeReturn) @*displayfor değeri getiriyor*@
+    </div>
+    <div class="form-group">
+        <b>@Html.DisplayNameFor(e => e.ProductionYear): </b>
+        @Html.DisplayFor(e => e.ProductionYear)
+    </div>
+    <button type="submit" class="btn btn-success">Yes</button>//kaydı silcekse submit olsun,diğeri normal bir buton olabilir
+    @:&nbsp;
+    @Html.ActionLink("No","Index",null, htmlAttributes: new { @class = "btn btn-danger" })//böyle yapmaya gerek yoktu
+}
+

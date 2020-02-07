@@ -1,0 +1,40 @@
+﻿@model Movie
+@{//web config namespace e eklediğimiz için tek movie yazdık
+    ViewBag.Title = "Edit Movie";
+    var years = ViewBag.Years as SelectList;//selectlist ile adamın seçtiği satırın yıldeğerini gösteriyoz
+}
+
+<h2>@ViewBag.Title</h2>
+
+@*add.cshtmldeki gibi tablo yapmak yerine htmlhelper ilekolay yaparız,movies cont.da edit metodu içinde ve bu metot post metodu*@
+@*@Html.BeginForm("Edit", "Movies", FormMethod.Post)
+{
+
+    bunun doğru yolu aşağıda using ile
+}
+@{
+    Html.EndForm();
+}*@
+
+@using (Html.BeginForm("Edit", "Movies", FormMethod.Post))
+{
+    @Html.Hidden("Id",Model.Id)
+    @*<input type="hidden" name="Id" value="@Model.Id" /> Html karşılığı bu yazabiliriz*@
+    <div class="form-group">
+        @Html.Label("tbName", "Name:") @*label id si ve adı*@
+        @Html.TextBox("Name", Model.Name, new { @class = "form-control", placeholder = "Enter Movie name", id = "tbName" })  @*texbox adı ve değeri,güncelleme ol.için modeldeki name gelir ve günceli yazılacak , id label ile bağlantı için*@
+    </div>
+    <div class="form-group">
+        @Html.Label("ddlProductionYear", "ProductionYear:")
+        @Html.DropDownList("ProductionYear", years, new { @class = "form-control", id = "ddlProductionYear" })
+    </div>
+    <div class="form-group">
+        @Html.Label("tbBoxOfficeReturn", "BoxOfficeReturn:")
+        @Html.TextBox("BoxOfficeReturn",Model.BoxOfficeReturn,new { @class="form-control",placeholder="Enter movie box office return",id= "tbBoxOfficeReturn" })
+    </div>
+    <input type="submit" class="btn btn-success" value="Save" />
+    @:&nbsp;
+    <input type="reset" class="btn btn-warning" value="Clear" />
+}
+
+
