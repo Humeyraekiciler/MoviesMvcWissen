@@ -79,7 +79,7 @@ namespace _036_MoviesMvcWissen.Controllers
             };//noktaya çevirmemizin nedeni sunucu tarafında sıkıntı olmasın diye,biz nokta görmüyoruz ama.Sunucu kısmında 
             db.Movies.Add(entity);
             db.SaveChanges();
-            TempData["Info"]= "Record successfully saved to database";//mesajı listelenen yerde yani indexte görcem
+            TempData["Info"]= "Record successfully added to database";//mesajı listelenen yerde yani indexte görcem
             //Temodata kullanma sebebi viewbag yada data yapınca göstermedi çünkü burda return view yerine yönlenidirme yaptık add'den indexe gittiği için gözükmedi
             return RedirectToAction("Index");//ekleyince Indexe yönlendiriyor listenin güncelini görmek için istek
         }
@@ -113,6 +113,7 @@ namespace _036_MoviesMvcWissen.Controllers
             entity.BoxOfficeReturn =Convert.ToDouble(BoxOfficeReturn.Replace(",","."),CultureInfo.InvariantCulture);
             db.Entry(entity).State = EntityState.Modified;
             db.SaveChanges();
+            TempData["Info"] = "Record successfully updated to database";
             return RedirectToRoute(new { controller = "Movies", action = "Index" });
         }
 
@@ -124,12 +125,16 @@ namespace _036_MoviesMvcWissen.Controllers
             var model = db.Movies.FirstOrDefault(e => e.Id == id.Value);
             return View(model);
         }
+        [ActionName("Delete")]//iki metodunda imzalrı aynı olduğu için yaptık
         [HttpPost]
-        public ActionResult Delete(int id)
+        public ActionResult DeleteConfirmed(int? id)
         {
+            if (!id.HasValue)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Id is required!");
             var entity = db.Movies.Find(id);
             db.Movies.Remove(entity);
             db.SaveChanges();
+            TempData["Info"] = "Record successfully deleted to database";
             return RedirectToAction("Index");
         }
 
